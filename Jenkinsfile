@@ -15,16 +15,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                bat '''
-                set PATH=%PYTHON_PATH%;%PATH%
-                python --version || (echo "Python not found. Exiting." && exit 1)
-                pip --version || (echo "Pip not found. Exiting." && exit 1)
-                pip install -r requirements.txt || (echo "Pip install failed. Exiting." && exit 1)
-                '''
-            }
-        }
+        stage('Build') {             steps {                 bat '''                 REM Update PATH to include the Scripts directory where pip is located                 set PATH=C:\\Users\\Sujit Chaugule\\AppData\\Local\\Programs\\Python\\Python311\\Scripts;C:\\Users\\Sujit Chaugule\\AppData\\Local\\Programs\\Python\\Python311;%PATH%                                  REM Check Python version                 python --version || (echo "Python not found. Exiting." && exit 1)                                  REM Check pip version                 pip --version || (echo "Pip not found. Exiting." && exit 1)                                  REM Example: Install a Python package                 pip install requests                 '''
 
         stage('SonarQube Analysis') {
             environment {
