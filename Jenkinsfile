@@ -1,101 +1,59 @@
 pipeline {
 
     agent any
- 
+
     environment {
-
         PYTHON_PATH = 'C:/Users/Sujit Chaugule/AppData/Local/Programs/Python/Python311;C:/Users/Sujit Chaugule/AppData/Local/Programs/Python/Python311/Scripts'
-
         SONAR_SCANNER_PATH = 'D:/altered/sonar-scanner-6.2.1.4610-windows-x64/bin'
-
     }
- 
+
     stages {
 
         stage('Checkout') {
-
             steps {
-
                 checkout scm
-
             }
-
         }
- 
+
         stage('Build') {
-
             steps {
-
-                // Set the PATH and install dependencies using pip
-
                 bat '''
-
                 set PATH=%PYTHON_PATH%;%PATH%
-
-                pip install -r requirements.txt
-
+                python --version || (echo "Python not found. Exiting." && exit 1)
+                pip --version || (echo "Pip not found. Exiting." && exit 1)
+                pip install -r requirements.txt || (echo "Pip install failed. Exiting." && exit 1)
                 '''
-
             }
-
         }
- 
+
         stage('SonarQube Analysis') {
-
             environment {
-
-                SONAR_TOKEN = credentials('Sonarqube-token') // Accessing the SonarQube token stored in Jenkins credentials
-
+                SONAR_TOKEN = credentials('Sonarqube-token')
             }
-
             steps {
-
-                // Ensure that sonar-scanner is in the PATH
-
                 bat '''
-
                 set PATH=%SONAR_SCANNER_PATH%;%PATH%
-
-                where sonar-scanner || echo "SonarQube scanner not found. Please install it."
-
-                set PATH=%PYTHON_PATH%;%PATH%
-
+                where sonar-scanner || (echo "SonarQube scanner not found. Exiting." && exit 1)
                 sonar-scanner -Dsonar.projectKey=demoJenkins ^
-
                     -Dsonar.sources=. ^
-
                     -Dsonar.host.url=http://localhost:9000 ^
-
                     -Dsonar.token=%SONAR_TOKEN%
-
                 '''
             }
-
         }
 
     }
- 
+
     post {
-
         success {
-
             echo 'Pipeline completed successfully'
-
         }
-
         failure {
-
             echo 'Pipeline failed'
-
         }
-
         always {
-
             echo 'This runs regardless of the result.'
-
         }
-
     }
 
 }
- 
