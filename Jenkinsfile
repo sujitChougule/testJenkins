@@ -4,9 +4,9 @@ pipeline {
  
     environment {
 
-        PYTHON_PATH = 'C:\Users\Sujit Chaugule\AppData\Local\Programs\Python\Python311;C:\Users\Sujit Chaugule\AppData\Local\Programs\Python\Python311\Scripts'
+        PYTHON_PATH = 'C:/Users/Sujit Chaugule/AppData/Local/Programs/Python/Python311;C:/Users/Sujit Chaugule/AppData/Local/Programs/Python/Python311/Scripts'
 
-        SONAR_SCANNER_PATH = 'D:\altered\sonar-scanner-6.2.1.4610-windows-x64\bin'
+        SONAR_SCANNER_PATH = 'D:/altered/sonar-scanner-6.2.1.4610-windows-x64/bin'
 
     }
  
