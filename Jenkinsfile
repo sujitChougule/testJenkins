@@ -4,9 +4,9 @@ pipeline {
  
     environment {
 
-        PYTHON_PATH = 'C:/Users/ADMIN/AppData/Local/Programs/Python/Python313;C:/Users/ADMIN/AppData/Local/Programs/Python/Python313/Scripts'
+        PYTHON_PATH = 'C:\Users\Sujit Chaugule\AppData\Local\Programs\Python\Python311;C:\Users\Sujit Chaugule\AppData\Local\Programs\Python\Python311\Scripts'
 
-        SONAR_SCANNER_PATH = 'C:/Users/ADMIN/Downloads/sonar-scanner-cli-6.2.1.4610-windows-x64/sonar-scanner-6.2.1.4610-windows-x64/bin'
+        SONAR_SCANNER_PATH = 'D:\altered\sonar-scanner-6.2.1.4610-windows-x64\bin'
 
     }
  
@@ -60,7 +60,7 @@ pipeline {
 
                 set PATH=%PYTHON_PATH%;%PATH%
 
-                sonar-scanner -Dsonar.projectKey=test007 ^
+                sonar-scanner -Dsonar.projectKey=demoJenkins ^
 
                     -Dsonar.sources=. ^
 
@@ -69,7 +69,6 @@ pipeline {
                     -Dsonar.token=%SONAR_TOKEN%
 
                 '''
-
             }
 
         }
